@@ -1,0 +1,125 @@
+---
+title: "Reproducible Document"
+author: "Sofie H. G. Jakobsen,(this is yammel... a specefic syntact to format the qmd file)"
+format: html
+---
+
+## Writing R code 
+
+This is going to be text in the HTML file if u wanna make a code chunk you have to use:
+
+"option+command+I"
+                  
+This will open the a code chunk:
+
+```{r}
+2+2
+```
+
+## The tasks from reading 15.6
+
+To create an object we use: "<-"
+
+```{r}
+weight_kilos <- 100
+weight_kilos
+```
+
+
+## The different data types and functions
+```{r}
+# Character vector
+a1 <- c("a", "b", "c")
+a1
+
+# Logic vector
+b1 <-c(TRUE, FALSE, FALSE)
+b1
+
+# Numeric vector
+c1 <- c(1, 5, 6, 1.4)
+c1
+
+# Factor vector (special types of character vectors)
+d1 <- factor(c("low", "high", "medium", "high"))
+d1
+
+#This is what a data frame looks like, if we look at the built-in dataset called airquality, which is a data frame object loaded by default when you start R
+head(airquality)
+```
+
+
+## Understanding of libraries 
+
+In the Packages tab you can find the packages you can activate using library. 
+to get more packages u have to install them using install.packages(). 
+Obs this should be done in the beginning of the document. 
+we use packages from a system from the tidyverse. this includes a ocean of functions.
+Tidyvers were installed as a part of the pre course material. 
+Tidyvers is knwn as a meta packages. it loades 9 packages, very good for begining. 
+
+Using "Setup" tells the code to run this chunch first
+
+```{r setup}
+library(tidyverse)
+```
+
+
+# Learning Markdown
+# Header 1
+
+Paragraph.
+
+## Header 2
+
+Paragraph.
+
+### Header 3
+
+Paragraph.
+
+- item 1
+- item 2
+- item 3
+1. item 1
+2. item 2
+3. item 3
+
+**bold**
+
+*italics*
+
+super^script^
+
+sub~script~
+
+
+
+# Exercise 15.9: Practice using Markdown
+
+## About me
+
+-   Sofie H. G. Jakobsen
+-   SDU
+
+I'm a PhD Student in **Anne Loft's Group** at the *SDU*
+
+## Simple code
+
+
+```{r}
+3*3
+```
+
+## setting up git
+
+```{r}
+usethis::use_git_ignore(c("*html", "*_files/"))
+
+```
+
+
+
+
+
+
