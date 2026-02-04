@@ -125,6 +125,56 @@ some files u do not wish to changes like the html or any folder ending on _files
 
 
 
-## Testing for Git
+#### Testing for Git
+
+
+
+# **Day 2** 
+## **Importing data into R**
+
+This data is from an openscience archive. we will be using this for this course. We look at insulin lvl. 
+Do not run this every time! we only want to download it once
+```{r}
+#download.file(
+#  url = "https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1",
+#  destfile = here::here("data/post-meal-insulin.csv")
+#)
+
+
+#Load the data into the enviroment
+#When we use the here::here i do not have to insert the entier path the program knows where it is using the here (read setion 17.4)
+post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
+
+```
+
+
+## Showing the data
+
+Sent it to git - this is a small file.... for big files or sensetive files like human data put it in git ignore so it is not uploaded to the git. also large files will take up a lot of space!
+
+```{r}
+post_meal_data
+
+glimpse(post_meal_data) # a different way to look at the data 
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
