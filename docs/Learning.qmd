@@ -148,6 +148,8 @@ Do not run this every time! we only want to download it once
 # Load the data into the enviroment
 # When we use the here::here i do not have to insert the entier path the program knows where it is using the here (read setion 17.4)
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
+
+small_post_meal_data <- select(post_meal_data, id, Age, BMI, Group, auc_pg, auc_ins, glykemi)
 ```
 
 
@@ -268,56 +270,60 @@ ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
 This should be done in the consul:
 
 ```{r}
+# is everything ok?
+# usethis::gh_token_help()
 
-#is everything ok?
-#usethis::gh_token_help()
+# if the token is unset do this
+# usethis::create_github_token()
 
-#if the token is unset do this
-#usethis::create_github_token()
-
-#gitcreds::gitcreds_set() # give it the new token. 
+# gitcreds::gitcreds_set() # give it the new token.
 
 # now check again if it says discovered all is well
-
-
 ```
 
 
 now we will link this project to gitHub
 
 ```{r}
-#usethis::use_github()
+# usethis::use_github()
 
+# saperlipopette     is a packages is an escaperoom for how to learn git. find it on github there u can also find a book for help
 ```
 
 
 
+## Selecting Data
+
+```{r}
+select(post_meal_data, Age) # one colum
+
+select(post_meal_data, Age, BMI, Weight) # more coloums
+
+select(post_meal_data, -Group) # exclude a group
+
+
+# how to use functions to get specefic data
+select(post_meal_data, starts_with("PG")) # finding all coloums that start with PG
+
+select(post_meal_data, ends_with("DXA")) # all colums that ends with DXA
+
+select(post_meal_data, contains("0")) # every colum that contains a 0
+```
+## Renaming Columns
+
+```{r}
+# this is a pipe |>
+
+small_post_meal_data |>
+  rename(
+    auc_glucose = auc_pg,
+    auc_insulin = auc_ins
+  )
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 20.6 🧑‍💻 Exercise: Practice selecting and renaming
 
 
 
