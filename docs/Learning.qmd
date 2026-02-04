@@ -13,7 +13,7 @@ This is going to be text in the HTML file if u wanna make a code chunk you have 
 This will open the a code chunk:
 
 ```{r}
-2+2
+2 + 2
 ```
 
 ## The tasks from reading 15.6
@@ -33,7 +33,7 @@ a1 <- c("a", "b", "c")
 a1
 
 # Logic vector
-b1 <-c(TRUE, FALSE, FALSE)
+b1 <- c(TRUE, FALSE, FALSE)
 b1
 
 # Numeric vector
@@ -44,7 +44,7 @@ c1
 d1 <- factor(c("low", "high", "medium", "high"))
 d1
 
-#This is what a data frame looks like, if we look at the built-in dataset called airquality, which is a data frame object loaded by default when you start R
+# This is what a data frame looks like, if we look at the built-in dataset called airquality, which is a data frame object loaded by default when you start R
 head(airquality)
 ```
 
@@ -113,7 +113,7 @@ I'm a PhD Student in **Anne Loft's Group** at the *SDU*
 
 
 ```{r}
-3*3
+3 * 3
 ```
 
 ## setting up git
@@ -124,8 +124,7 @@ In the history you can see the documets with the changes and the history of chan
 some files u do not wish to changes like the html or any folder ending on _files. this can be added to git ignore so it wont be re uploaded everytime: 
 
 ```{r}
-#usethis::use_git_ignore(c("*html", "*_files/"))
-
+# usethis::use_git_ignore(c("*html", "*_files/"))
 ```
 
 
@@ -140,16 +139,15 @@ some files u do not wish to changes like the html or any folder ending on _files
 This data is from an openscience archive. we will be using this for this course. We look at insulin lvl. 
 Do not run this every time! we only want to download it once
 ```{r}
-#download.file(
+# download.file(
 #  url = "https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1",
 #  destfile = here::here("data/post-meal-insulin.csv")
-#)
+# )
 
 
-#Load the data into the enviroment
-#When we use the here::here i do not have to insert the entier path the program knows where it is using the here (read setion 17.4)
+# Load the data into the enviroment
+# When we use the here::here i do not have to insert the entier path the program knows where it is using the here (read setion 17.4)
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
-
 ```
 
 
@@ -160,10 +158,7 @@ Sent it to git - this is a small file.... for big files or sensetive files like 
 ```{r}
 post_meal_data
 
-glimpse(post_meal_data) # a different way to look at the data 
-
-
-
+glimpse(post_meal_data) # a different way to look at the data
 ```
 
 
@@ -174,14 +169,11 @@ glimpse(post_meal_data) # a different way to look at the data
 They recomed that u only have one plot pr code chunck. it gives an option to add a figure lable to your html file... not sure i would do this tho.
 
 ```{r}
-
 ggplot(post_meal_data, aes(x = BMI))
 
 
 ggplot(post_meal_data, aes(x = BMI)) +
-  geom_histogram(na.rm = FALSE) #na.rm is removing the missing valuse so set it to falls to get all data. (obs no missing data for this plot)
-
-
+  geom_histogram(na.rm = FALSE) # na.rm is removing the missing valuse so set it to falls to get all data. (obs no missing data for this plot)
 ```
 
 
@@ -190,8 +182,6 @@ ggplot(post_meal_data, aes(x = BMI)) +
 #| label: fig-bmi-histo
 ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
-
-
 ```
 
 ##  18.5 🧑‍💻 Exercise: Plot a discrete variable
@@ -217,13 +207,13 @@ ggplot(post_meal_data, aes(x = glykemi)) +
 obs it cannot reander if it encounters an error 
 
 ```{r}
-##| fig-cap: "Group and Glykemi Distribution"
-##| label: fig-Group-Glykemi-bar-plot
-#ggplot(post_meal_data, aes(x = Group, fill = glykemi)) +
- # geom_bar()
+## | fig-cap: "Group and Glykemi Distribution"
+## | label: fig-Group-Glykemi-bar-plot
+# ggplot(post_meal_data, aes(x = Group, fill = glykemi)) +
+# geom_bar()
 
 
-# This gives a warning cuz fill wants a factor. so we have to convert glykemi to a factor. 
+# This gives a warning cuz fill wants a factor. so we have to convert glykemi to a factor.
 ```
 
 Notes:
@@ -242,7 +232,7 @@ Use as.factor() when:
 #| fig-cap: "Group and Glykemi Distribution"
 #| label: fig-Group-Glykemi-bar-plot
 ggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +
-  geom_bar(position = position_dodge()) # this position changes ti so that they stand next to eachouther and not on top 
+  geom_bar(position = position_dodge()) # this position changes ti so that they stand next to eachouther and not on top
 ```
 
 
@@ -251,14 +241,24 @@ more plots in one figure
 
 ```{r fig-bmi-glycemia}
 #| fig-cap: "BMI and glycemia, side by side"
-#| fig-subcap: 
+#| fig-subcap:
 #|  - "Distribution of BMI"
 #|  - "Number of thoes with glycemia"
-#| layout-ncol: 2 
-ggplot(post_meal_data, aes(x=BMI))+
+#| layout-ncol: 2
+ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
-ggplot(post_meal_data, aes(x=glykemi))+
+ggplot(post_meal_data, aes(x = glykemi)) +
   geom_bar()
-
 ```
 
+
+## plotting two continous varables
+
+```{r}
+#| fig-cap: "Scatterplot of BMI and the area under the curve for glucose"
+#| label: fig-bmi-auc-pg
+
+ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
+  geom_point() + # scatter plot
+  geom_smooth() # trend curve
+```
