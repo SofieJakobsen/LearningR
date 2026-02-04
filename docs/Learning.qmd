@@ -59,8 +59,13 @@ Tidyvers were installed as a part of the pre course material.
 Tidyvers is knwn as a meta packages. it loades 9 packages, very good for begining. 
 
 Using "Setup" tells the code to run this chunch first
+option + I = | the line
 
-```{r setup}
+```{r setup }
+#| message: false
+#| warning: false
+
+
 library(tidyverse)
 ```
 
@@ -163,18 +168,50 @@ glimpse(post_meal_data) # a different way to look at the data
 
 
 
+# 18  Basic data visualization
+
+## Plot one continous variable
+They recomed that u only have one plot pr code chunck. it gives an option to add a figure lable to your html file... not sure i would do this tho.
+
+```{r}
+
+ggplot(post_meal_data, aes(x = BMI))
+
+
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram(na.rm = FALSE) #na.rm is removing the missing valuse so set it to falls to get all data. (obs no missing data for this plot)
+
+
+```
+
+
+```{r}
+#| fig-cap: "Distribution of BMI."
+#| label: fig-bmi-histo
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+
+
+```
+
+##  18.5 🧑‍💻 Exercise: Plot a discrete variable
 
 
 
+```{r}
+#| fig-cap: "Group Distribution"
+#| label: fig-Group-bar
+ggplot(post_meal_data, aes(x = Group)) +
+  geom_bar()
+```
 
 
-
-
-
-
-
-
-
+```{r}
+#| fig-cap: "Group Distribution"
+#| label: fig-Group-histo
+ggplot(post_meal_data, aes(x = Group)) +
+  geom_boxplot()
+```
 
 
 
