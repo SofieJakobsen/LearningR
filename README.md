@@ -6,7 +6,7 @@ Sofie H. G. Jakobsen Learning R
 
 TODO: Give a brief description of what your project is about
 
-This project...
+This project... is not really a project it is to learn how to code in R and upload it to gitHub
 
 # Brief description of folder and file contents
 
