@@ -262,3 +262,83 @@ ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
   geom_point() + # scatter plot
   geom_smooth() # trend curve
 ```
+
+# 19  Collaborating with GitHub
+
+This should be done in the consul:
+
+```{r}
+
+#is everything ok?
+#usethis::gh_token_help()
+
+#if the token is unset do this
+#usethis::create_github_token()
+
+#gitcreds::gitcreds_set() # give it the new token. 
+
+# now check again if it says discovered all is well
+
+
+```
+
+
+now we will link this project to gitHub
+
+```{r}
+#usethis::use_github()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
