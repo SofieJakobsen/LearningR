@@ -1,12 +1,13 @@
 TODO: Add more to the title of your project here
 
-Sofie H. G. Jakobsen Learning R 
+Sofie H. G. Jakobsen 
 
 # LearningR:
 
 TODO: Give a brief description of what your project is about
 
-This project... is not really a project it is to learn how to code in R and upload it to gitHub
+This project... is not really a project it is to learn how to code in R and upload it to gitHub.
+It is so far going ok
 
 # Brief description of folder and file contents
 
