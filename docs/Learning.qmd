@@ -207,11 +207,58 @@ ggplot(post_meal_data, aes(x = Group)) +
 
 
 ```{r}
-#| fig-cap: "Group Distribution"
-#| label: fig-Group-histo
-ggplot(post_meal_data, aes(x = Group)) +
-  geom_boxplot()
+#| fig-cap: "Glykemi Distribution"
+#| label: fig-glykemi-bar
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+### Plotting more variables 
+obs it cannot reander if it encounters an error 
+
+```{r}
+##| fig-cap: "Group and Glykemi Distribution"
+##| label: fig-Group-Glykemi-bar-plot
+#ggplot(post_meal_data, aes(x = Group, fill = glykemi)) +
+ # geom_bar()
+
+
+# This gives a warning cuz fill wants a factor. so we have to convert glykemi to a factor. 
+```
+
+Notes:
+Use as.character() when:
+- Data is free text
+- Order doesn’t matter
+- You don’t want R to treat values as categories
+
+Use as.factor() when:
+- Data represents categories
+- Values repeat
+- You’re doing statistical analysis or grouping
+- Levels have meaning
+
+```{r}
+#| fig-cap: "Group and Glykemi Distribution"
+#| label: fig-Group-Glykemi-bar-plot
+ggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +
+  geom_bar(position = position_dodge()) # this position changes ti so that they stand next to eachouther and not on top 
 ```
 
 
+## Side by side plots
+more plots in one figure
+
+```{r fig-bmi-glycemia}
+#| fig-cap: "BMI and glycemia, side by side"
+#| fig-subcap: 
+#|  - "Distribution of BMI"
+#|  - "Number of thoes with glycemia"
+#| layout-ncol: 2 
+ggplot(post_meal_data, aes(x=BMI))+
+  geom_histogram()
+ggplot(post_meal_data, aes(x=glykemi))+
+  geom_bar()
+
+```
 
