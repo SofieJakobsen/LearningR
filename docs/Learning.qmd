@@ -409,3 +409,118 @@ tidier_post_meal_data |>
     Group = if_else(Group == "CTR", "Control", "First-degree relative")
   )
 ```
+
+
+##  20.9 🧑‍💻 Exercise: Practice with filter and mutate
+# Practice with filter and mutate
+
+
+```{r}
+# Task 1.
+post_meal_data |>
+  filter(BMI >= 25 & BMI <= 40 & Group == "FDR")
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100
+  ) |>
+  filter(percent_body_fat > 30)
+
+```
+
+#Day 3
+# 21  Wrangling with visualizing
+## Visualizing with a jitter plot
+
+```{r}
+
+set.seed(4)
+tidied_post_meal_data |>
+  mutate(overweight = if_else(BMI >= 25, "overweight", "not overweight")) |>
+  ggplot(aes(x = overweight, y=insulin_glucose_ratio))+
+  geom_jitter()
+
+
+
+```
+
+### Plotting three or more variables
+three variables:
+
+```{r}
+
+tidied_post_meal_data |>
+  filter(BMI < 30) |>
+  mutate(young = if_else( Age < 40, "young", "old")) |>
+  ggplot(aes(x = BMI, y = insulin_glucose_ratio, colour = Group)) +
+  geom_point() + 
+  facet_grid(rows = vars(young)) + #change row to cols for colum display
+  labs(
+    x = "Body mass index (BMI)",
+    y = "Insuling to glucose ratio"
+  )
+ 
+
+```
+
+
+
+
+## 21.4 🧑‍💻 Exercise: Creating some multi-dimensional plots
+
+```{r}
+
+#| label: fig-multidimensional
+#| fig-cap: "Two, mult-dimensional plots of our data."
+#| fig-subcap:
+#|   - "Distribution of percent body fat by group and age category."
+#|   - "Relationship between BMI and bone mineral density, split by insulin sensitivity."
+#| layout-ncol: 2
+# Task 1.
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100,
+    young = if_else(Age < 40, "young", "old")
+  ) |>
+  ggplot(aes(x = Group, y = percent_body_fat, colour = young)) +
+  geom_jitter(width = 0.2)
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = (auc_ins / auc_pg),
+    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")
+  ) |>
+  ggplot(aes(x = BMI, y = Bone.mineral.DXA, colour = insulin_insensitive)) +
+  geom_point() +
+  geom_smooth() +
+  facet_grid(cols = vars(insulin_insensitive))
+```
+
+
+
+## 21.6 🧑‍💻 Optional exercise: Changing the colour schemes
+Very funny tho 
+ 
+```{r}
+# Tasks 1. and 2.
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) +
+  scale_fill_viridis_d() #option = "magma"
+
+# Tasks 3. and 4.
+post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+ scale_colour_viridis_c(option = "inferno")
+```
+ 
+ 
+ 
+ 
+ 
+ 
+ 
