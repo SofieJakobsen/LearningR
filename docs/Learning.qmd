@@ -530,18 +530,52 @@ tidied_post_meal_data |>
 
 
 ```{r}
+#| label: tbl-mean-age-bmi
+#| tbl-cap: "Mean values of Age and BMI for each group."
 tidied_post_meal_data |>
   group_by(Group) |>
   summarise(
-    mean_age = mean(Age),
-    mean_bmi = mean(BMI)
+    "Mean Age (yrs)" = round(mean(Age), 1),
+    "Mean BMI (kg/m^2^)" = round(mean(BMI), 1)
   ) |>
-  ungroup() ## it is still grouped by group this removes it... still not sure why? something if u continue to work with it.
+  ungroup() |> ## it is still grouped by group this removes it... still not sure why? something if u continue to work with it.
+  knitr::kable()
 ```
  
  
+ ##  22.6 🧑‍💻 Optional exercise: Creating a table using R code
  
- 
+```{r, eval=FALSE}
+#| label: tbl-summary-table
+#| tbl-cap: "Median values of AUC measurements by age group and family history group."
+post_meal_data |>
+  # Task 2.
+  filter(BMI < 30) |>
+  # Task 3.
+  mutate(
+    age_group = if_else(Age < 40, "Young", "Old"),
+    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+  ) |>
+  # Task 4.
+  median(auc_cp, auc_pg) |>
+  summarise(
+    "AUC c-Peptide" = round(mean(auc_cp), 1),
+    "AUC Glucose" = round(mean(auc_pg), 1),
+    "AUC Insulin" = round(mean(auc_ins), 1)
+  ) |>
+  # Task 5.
+  rename(
+    "age_group" = age_group,
+    "___" = Group
+  ) |>
+  # Task 6.
+  ___() |>
+  ___::___()
+
+
+```
+
+
  
  
  
