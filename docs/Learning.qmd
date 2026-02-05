@@ -426,7 +426,6 @@ post_meal_data |>
     percent_body_fat = (Fat.mass.DXA / Weight) * 100
   ) |>
   filter(percent_body_fat > 30)
-
 ```
 
 #Day 3
@@ -434,34 +433,27 @@ post_meal_data |>
 ## Visualizing with a jitter plot
 
 ```{r}
-
 set.seed(4)
 tidied_post_meal_data |>
   mutate(overweight = if_else(BMI >= 25, "overweight", "not overweight")) |>
-  ggplot(aes(x = overweight, y=insulin_glucose_ratio))+
+  ggplot(aes(x = overweight, y = insulin_glucose_ratio)) +
   geom_jitter()
-
-
-
 ```
 
 ### Plotting three or more variables
 three variables:
 
 ```{r}
-
 tidied_post_meal_data |>
   filter(BMI < 30) |>
-  mutate(young = if_else( Age < 40, "young", "old")) |>
+  mutate(young = if_else(Age < 40, "young", "old")) |>
   ggplot(aes(x = BMI, y = insulin_glucose_ratio, colour = Group)) +
-  geom_point() + 
-  facet_grid(rows = vars(young)) + #change row to cols for colum display
+  geom_point() +
+  facet_grid(rows = vars(young)) + # change row to cols for colum display
   labs(
     x = "Body mass index (BMI)",
     y = "Insuling to glucose ratio"
   )
- 
-
 ```
 
 
@@ -470,7 +462,6 @@ tidied_post_meal_data |>
 ## 21.4 🧑‍💻 Exercise: Creating some multi-dimensional plots
 
 ```{r}
-
 #| label: fig-multidimensional
 #| fig-cap: "Two, mult-dimensional plots of our data."
 #| fig-subcap:
@@ -509,13 +500,43 @@ post_meal_data |>
   mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
   ggplot(aes(x = Group, fill = hyperglycemia)) +
   geom_bar(position = position_dodge()) +
-  scale_fill_viridis_d() #option = "magma"
+  scale_fill_viridis_d() # option = "magma", "inferno", "plasma", "viridis", "cividis", "mako", "turbo"
 
 # Tasks 3. and 4.
 post_meal_data |>
   ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
   geom_point() +
- scale_colour_viridis_c(option = "inferno")
+  scale_colour_viridis_c(option = "inferno")
+```
+ 
+ 
+# 22 Split, apply, and combine
+## calculating summary statistics  
+ 
+```{r}
+tidied_post_meal_data |>
+  summarise(max_bmi = max(BMI, na.rm = TRUE)) # will show result even if there is na values
+
+
+tidied_post_meal_data |>
+  summarise(
+    max_bmi = max(BMI),
+    min_bmi = min(BMI)
+  )
+```
+ 
+ 
+## summarise with group by
+
+
+```{r}
+tidied_post_meal_data |>
+  group_by(Group) |>
+  summarise(
+    mean_age = mean(Age),
+    mean_bmi = mean(BMI)
+  ) |>
+  ungroup() ## it is still grouped by group this removes it... still not sure why? something if u continue to work with it.
 ```
  
  
